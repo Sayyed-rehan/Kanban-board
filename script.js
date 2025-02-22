@@ -60,7 +60,7 @@ modal.addEventListener("keypress", (e) => {
     let dummy_node = original_node.cloneNode(true);
     console.log(dummy_node.children);
     dummy_node.children[0].style.backgroundColor = color_obj[input_priority];
-    console.log(text_area.value);
+    dummy_node.children[1].innerText = new ShortUniqueId().rnd()
     dummy_node.children[2].innerText = text_area.value;
 
     let parent = original_node.parentNode;
