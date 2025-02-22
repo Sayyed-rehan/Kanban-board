@@ -1,103 +1,183 @@
+:root {
+  --pink: lightpink;
+  --blue: lightblue;
+  --green: lightgreen;
+  --purple: #8e44ad;
+  ;
+  --light: white;
+  --red: rgb(245, 9, 9);
+}
 
 html,
 body {
-    margin: 0;
+  margin: 0;
 }
 
-.container{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.header{
-    background-color: black;
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-
-
+.header {
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }
 
-.toolbox_priority_cont{
-    background-color: gray;
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    padding: 15px;
-    margin: 10px;
+.toolbox_priority_cont {
+  background-color: gray;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 15px;
+  margin: 10px;
 }
 
-.color{
-    width: 80px;
-    height: 30px;
+.color {
+  width: 80px;
+  height: 30px;
 }
 
-.pink{
-    background-color: pink;
+.pink {
+  background-color: var(--pink)
 }
 
-.blue{
-    background-color: lightblue;
+.blue {
+  background-color: var(--blue);
 }
 
-.purple{
-    background-color: lightcoral;
+.purple {
+  background-color: var(--purple);
 }
 
-.green{
-    background-color: lightgreen;
+.green {
+  background-color: var(--green);
+}
+
+.action {
+  background-color: white;
+  width: 150px;
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+  align-items: center;
+}
+
+.add_btn,
+.remove_btn {
+  font-size: 1.75rem;
+}
+
+.dashboard {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  padding-left: 10px;
+}
+
+.cards {
+  background-color: white;
+  width: 300px;
+  height: 200px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  /* margin: 5px; */
+}
+
+.cards > .priority {
+  height: 25px;
+  /* background-color: red; */
+}
+
+.cards > .id {
+  font-weight: bolder;
+  font-size: large;
+  font-family: poppins;
+  padding: 5px;
+}
+
+.cards > .content {
+  padding: 5px;
+  font-size: x-large;
+  font-family: poppins;
+  overflow: auto;
+}
+
+.modal-container {
+  /* width: 600px;
+  height: 400px; */
+  background-color: red;
+  position: fixed;
+  height: 50vh;
+  width: 50vw;
+  left: 25vw;
+  top: 25vh;
+  display: none;
+  flex-direction: row;
+
+  -webkit-box-shadow: 10px 10px 40px -4px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 40px -4px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 40px -4px rgba(0, 0, 0, 0.75);
+}
+
+.text-area{
+/* background-color: royalblue; */
+height: 100%;
+width: 75%;
+/* padding: 5px; */
+}
+
+textarea{
+  /* background-color: lightblue; */
+  width: 100%;
+  height: 100%;
+  font-size: xx-large;
+  border: none;
+  resize: none;
+  outline: none;
+  padding: 10px;
+}
+
+.set-priority{
+  background-color:black;
+  height: 100%;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.set-priority > .pink{
+  background-color: pink;
+  width: 100px;
+  height: 40px;
+}
+
+.set-priority > .blue{
+  background-color: lightblue;
+  width: 100px;
+  height: 40px;
+}
+
+.set-priority > .green{
+  background-color: lightgreen;
+  width: 100px;
+  height: 40px;
+}
+
+.set-priority > .purple{
+  background-color: lightcoral;
+  width: 100px;
+  height: 40px;
 }
 
 
-.action{
-    background-color: white;
-    width:150px;
-    display: flex;
-    justify-content:space-around;
-    margin: 10px;
-    align-items: center;
-}
-
-.add_btn, .remove_btn{
-    font-size: 1.75rem;
-}
-
-.dashboard{
-    display: flex;
-    align-items: center;
-    gap: 25px;
-    flex-wrap: wrap;
-    padding-left: 10px;
-}
-
-.cards{
-    background-color:wheat;
-    width: 300px;
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-   /* margin: 5px; */
-}
-
-.cards > .priority{
-    height: 25px;
-    background-color: lightgreen;
-}
-
-.cards> .id{
-    font-weight: bolder;
-    font-size:large;
-    font-family: poppins;
-    padding: 5px;
-}
-
-
-.cards> .content{
-    padding: 5px;
-    font-size:x-large;
-    font-family: poppins;
-    overflow:auto;
+.active{
+  border: 6px solid white;
 }
 
