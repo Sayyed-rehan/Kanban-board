@@ -2,7 +2,7 @@
   --pink: lightpink;
   --blue: lightblue;
   --green: lightgreen;
-  --purple: #8e44ad;
+  --purple: lightcoral;
   ;
   --light: white;
   --red: rgb(245, 9, 9);
@@ -37,7 +37,7 @@ body {
 
 .color {
   width: 80px;
-  height: 30px;
+  height: 20px;
 }
 
 .pink {
@@ -71,26 +71,29 @@ body {
 }
 
 .dashboard {
+
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 30px;
   flex-wrap: wrap;
   padding-left: 10px;
 }
 
 .cards {
-  background-color: white;
+  background-color: #ecf0f1;
   width: 300px;
   height: 200px;
   display: none;
+  /* display: flex; */
   flex-direction: column;
   gap: 10px;
+  position: relative;
   /* margin: 5px; */
 }
 
 .cards > .priority {
   height: 25px;
-  /* background-color: red; */
+  background-color: var(--pink);
 }
 
 .cards > .id {
@@ -107,10 +110,21 @@ body {
   overflow: auto;
 }
 
+.cards > .lock_unlock{
+  /* background-color: pink; */
+  font-size: x-large;
+  /* position: relative;
+  left: 90%;
+  top: 20%; */
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+}
+
 .modal-container {
   /* width: 600px;
   height: 400px; */
-  background-color: red;
+  /* background-color: red; */
   position: fixed;
   height: 50vh;
   width: 50vw;
