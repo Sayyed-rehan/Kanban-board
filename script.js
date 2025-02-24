@@ -5,8 +5,9 @@ let text_area = document.querySelector(".text-area");
 let set_priority = document.querySelector(".set-priority");
 let toolbox_priority_cont = document.querySelector(".toolbox_priority_cont");
 let dashboard = document.querySelector(".dashboard");
-let remove = document.querySelector('.remove_btn')
-
+let remove = document.querySelector(".remove_btn");
+let cache_data = localStorage.getItem("tickets");
+// console.log('cache_data',JSON.parse(cache_data));
 let input_priority;
 let color_arr = ["pink", "blue", "green", "purple"];
 let color_obj = {
@@ -15,10 +16,7 @@ let color_obj = {
   green: "lightgreen",
   purple: "lightcoral",
 };
-
-
-
-
+console.log(dashboard.children, "asas");
 //open modal
 add.addEventListener("click", (e) => {
   console.log(e.target, e.currentTarget);
@@ -56,9 +54,11 @@ modal.addEventListener("keypress", (e) => {
 function createTicket(priority, content) {
   let original_node = document.querySelector(".cards");
   let dummy_node = original_node.cloneNode(true);
+
   dummy_node.children[0].style.backgroundColor = color_obj[priority];
   dummy_node.children[1].innerText = new ShortUniqueId().rnd();
   dummy_node.children[2].innerText = content;
+
   let parent = original_node.parentNode;
 
   // check if input and color are !undfiend
@@ -78,6 +78,12 @@ function createTicket(priority, content) {
   modal.style.display = "none";
   text_area.value = ""; //reset text
   dummy_node.style.display = "flex";
+
+  // const dataToStore = {
+  //   id: 'uid',
+  //   color: 'priorityColor',
+  //   content: 'content',
+  // };
 }
 
 let islocked = true;
@@ -118,8 +124,9 @@ function changeCardColor(select_priotiy) {
 }
 
 //sort according color
+let select_color;
 toolbox_priority_cont.addEventListener("click", (e) => {
-  let select_color = e.target.getAttribute("class").split(" ")[1];
+  select_color = e.target.getAttribute("class").split(" ")[1];
   // console.log(select_color[1]);
   // console.log(color_obj[select_color[1]]);
 
@@ -137,19 +144,81 @@ toolbox_priority_cont.addEventListener("click", (e) => {
   }
 });
 
-
-
 //show all tickets
 toolbox_priority_cont.addEventListener("dblclick", (e) => {
   // let select_color = e.target.getAttribute("class").split(" ")[1];
   for (let i = 1; i < dashboard.children.length; i++) {
     dashboard.children[i].style.display = "block";
   }
-})
-
+});
 
 //remove ticket
-remove.addEventListener('click',(e)=>{
-  remove.style.color = remove.style.color == 'red' ? 'black' : 'red'
-  
-})
+remove.addEventListener("click", (e) => {
+  remove.style.color = remove.style.color == "red" ? "black" : "red";
+  console.log("inside remove", select_color);
+
+  if (select_color && remove.style.color == "red") {
+    remove.style.color == "black";
+    for (let i = 0; i < dashboard.children.length; i++) {
+      if (dashboard.children[i].style.display == "block") {
+        console.log(dashboard.children[i]);
+        dashboard.children[i].remove();
+      }
+    }
+  }
+});
+
+console.log(dashboard.children[1]);
+window.addEventListener("beforeunload", function (event) {
+  console.log("Asss");
+
+  let result_Arr = [];
+  this.localStorage.clear
+  this.localStorage.removeItem("tickets");
+
+  for (let i = 0; i < dashboard.children.length; i++) {
+    console.log(dashboard.children[i]);
+    let dataToStore = {};
+    dataToStore.id = dashboard.children[i].children[1].innerText;
+    dataToStore.color = dashboard.children[i].children[0].style.backgroundColor;
+    dataToStore.content = dashboard.children[i].children[2].innerText;
+    result_Arr.push(dataToStore);
+  }
+  console.log("let reust", result_Arr[0]);
+
+  // Convert the data to a JSON string and store it in localStorage
+  localStorage.setItem("tickets", JSON.stringify(result_Arr));
+
+  // Optionally, you can return a message to display a warning dialog
+  // event.preventDefault(); // This is required for some browsers
+  // event.returnValue = ""; // This triggers the browser's warning dialog
+});
+
+//populate cache data
+window.onload = function () {
+  // Your code here
+  if (cache_data.length != 0) {
+    cache_data = JSON.parse(cache_data);
+    console.log(cache_data);
+    let original_node = document.querySelector(".cards");
+    for (let i = 1; i < cache_data.length; i++) {
+      let dummy_node = original_node.cloneNode(true);
+
+      dummy_node.style.display = "flex";
+      dummy_node.children[0].style.backgroundColor = cache_data[i].color;
+      dummy_node.children[1].innerText = cache_data[i].id;
+      dummy_node.children[2].innerText = cache_data[i].content;
+
+      // console.log(dummy_node);
+      let parent = original_node.parentNode;
+      parent.appendChild(dummy_node);
+
+      let ticketArea = dummy_node.querySelector(".content");
+      let lockBtn = dummy_node.querySelector(".lock_unlock");
+      let select_priotiy = dummy_node.querySelector(".priority");
+      addLockUnlock(ticketArea, lockBtn);
+    
+      changeCardColor(select_priotiy, cache_data[i].color);
+    }
+  }
+};
